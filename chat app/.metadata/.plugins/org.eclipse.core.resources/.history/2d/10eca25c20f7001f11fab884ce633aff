@@ -1,0 +1,5 @@
+package com.whatsappclone.whatsappclone.message;
+
+public interface MessageRepository {
+
+}

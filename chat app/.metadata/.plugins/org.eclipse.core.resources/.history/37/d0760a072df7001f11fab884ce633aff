@@ -1,0 +1,37 @@
+package com.whatsappclone.whatsappclone.Entity;
+
+import org.hibernate.annotations.JoinColumnOrFormula;
+
+import com.whatsappclone.whatsappclone.enums.NotificationStatus;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity(name="notifications")
+@Getter
+@Setter
+@NoArgsConstructor
+public class Notification extends BaseEntity {
+
+	@ManyToOne 
+	@JoinColumn(name="user_id",nullable=false)
+	private User user;
+	
+	@ManyToOne
+	@JoinColumn(name="message_id",nullable=false)
+	private Message messageId;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="status")
+	public NotificationStatus status;
+	
+	
+}
+

@@ -1,0 +1,168 @@
+package com.whatsappclone.whatsappclone.user;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.whatsappclone.whatsappclone.Entity.User;
+import com.whatsappclone.whatsappclone.Utilities.FileStorageService;
+//import com.whatsappclone.whatsappclone.Utilities.JwtUtil;
+import com.whatsappclone.whatsappclone.exceptions.InvalidPhoneNumberOrPasswordException;
+import com.whatsappclone.whatsappclone.exceptions.PhoneNumberAlreadyExistsException;
+import com.whatsappclone.whatsappclone.exceptions.ResourceNotFoundException;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+public class UserService {
+
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    
+    @Autowired
+    private FileStorageService fileStorageService;
+    // Import JwtUtil as well
+//    @Autowired
+//    private JwtUtil jwtUtil;
+    public UserService(UserRepository userRepository,PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder=passwordEncoder;
+    }
+
+    // Get all users and map to DTOs
+    public List<UserResponseDTO> getAllUsers() {
+        return userRepository.findAll().stream()
+                .map(user -> new UserResponseDTO(
+                        user.getId(),
+                        user.getUsername(),
+                        user.getPhone(),
+                        user.getProfilePicture(), null))
+                .collect(Collectors.toList());
+    }
+
+    
+ // Save user from DTO with phone number existence check
+    public UserResponseDTO saveUser(CreateUserRequestDTO requestDTO) {
+        // Check if phone number already exists
+        if (userRepository.existsByPhone(requestDTO.getPhone())) {
+            // You can throw an exception here if you want to handle it centrally
+            throw new PhoneNumberAlreadyExistsException("Phone number already exists");
+            
+        }
+        User user = new User();
+     // Save the uploaded photo
+        if (requestDTO.getProfilePicture() != null) {
+            String filePath;
+			try {
+				filePath = fileStorageService.saveFile(requestDTO.getProfilePicture());
+				 user.setProfilePicture(filePath); // Save file path in the database
+			} catch (IOException e) {
+				System.err.println("IMAGE TOO LARGE"+e.getMessage());
+				throw new PhoneNumberAlreadyExistsException(e.getMessage());
+			}
+           
+        }
+        
+      
+        user.setUsername(requestDTO.getUsername());
+        user.setPhone(requestDTO.getPhone());
+     // Encrypt the password before saving
+        user.setPassword(passwordEncoder.encode( requestDTO.getPassword()));
+        User savedUser = userRepository.save(user);
+        System.out.println("ENTIty of user : "+savedUser.getProfilePicture()+" , "+savedUser.getUsername());
+        return new UserResponseDTO(
+                savedUser.getId(),
+                savedUser.getUsername(),
+                savedUser.getPhone(),
+                savedUser.getProfilePicture(),
+                savedUser.getPassword()
+        );
+    }
+    
+    //update user
+    public UserResponseDTO updateUser(Long id, CreateUserRequestDTO requestDTO) {
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+
+        existingUser.setUsername(requestDTO.getUsername());
+        
+        User updatedUser = userRepository.save(existingUser);
+
+        return new UserResponseDTO(
+                updatedUser.getId(),
+                updatedUser.getUsername(),
+                updatedUser.getPhone(),
+                updatedUser.getProfilePicture(),
+                updatedUser.getPassword()
+        );
+    }
+
+//    //user login
+//	public UserResponseDTO userLogin(UserResponseDTO userResponseDTO) {
+//	
+//		Optional< User> userEntity=userRepository.findByPhone(userResponseDTO.getPhone());
+//		if(userEntity.isPresent()) {
+//			User userDetails=userEntity.get();
+//			
+//			if(passwordEncoder.matches(userResponseDTO.getPassword(), userDetails.getPassword())) {
+//				return new UserResponseDTO(
+//						
+//						userDetails.getId(),
+//						userDetails.getUsername(),
+//						userDetails.getPhone(),
+//						userDetails.getProfilePicture(),
+//						null
+//						);
+//			}
+//			else {
+//				throw new InvalidPhoneNumberOrPasswordException("Invalid Phone number or Password.");
+//			}
+//		}
+//		else {
+//			throw new InvalidPhoneNumberOrPasswordException("User Doesn't Exist.");
+//			
+//		}	
+//	}
+//	
+	
+    
+
+
+    // User login method with JWT integration
+    public UserResponseDTO userLogin(UserResponseDTO userResponseDTO) {
+        Optional<User> userEntity = userRepository.findByPhone(userResponseDTO.getPhone());
+
+        if (userEntity.isPresent()) {
+            User userDetails = userEntity.get();
+
+            // Verify password
+            if (passwordEncoder.matches(userResponseDTO.getPassword(), userDetails.getPassword())) {
+
+                // Generate JWT token after successful login
+//                String token = jwtUtil.generateToken(userDetails.getPhone());
+                
+                UserResponseDTO userResponseDTO2= new UserResponseDTO(
+                        userDetails.getId(),
+                        userDetails.getUsername(),
+                        userDetails.getPhone(),
+                        userDetails.getProfilePicture(), null
+                        );
+//              userResponseDTO2.setToken(token);
+                return userResponseDTO2;
+                        
+               
+                
+            } else {
+                throw new InvalidPhoneNumberOrPasswordException("Invalid Phone number or Password.");
+            }
+        } else {
+            throw new InvalidPhoneNumberOrPasswordException("User Doesn't Exist.");
+        }
+    }
+
+}

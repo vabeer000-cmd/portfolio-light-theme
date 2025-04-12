@@ -1,0 +1,5 @@
+package com.whatsappclone.whatsappclone.message_models;
+
+public class TypingStatus {
+
+}

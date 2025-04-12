@@ -1,0 +1,75 @@
+CREATE DATABASE IF NOT EXISTS whatsapp_clone;
+USE whatsapp_clone;
+
+-- USERS TABLE (Stores user details)
+CREATE TABLE IF NOT EXISTS users (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    phone VARCHAR(15) NOT NULL UNIQUE,
+    profile_picture VARCHAR(255),
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_phone (phone) -- Index for faster user lookup
+);
+
+
+-- CHATS TABLE (Stores one-to-one chats)
+CREATE TABLE chats (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user1_id BIGINT NOT NULL,
+    user2_id BIGINT NOT NULL,
+    last_message_id BIGINT DEFAULT NULL, -- Stores the latest message
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    UNIQUE (user1_id, user2_id), -- Ensures no duplicate chats
+    FOREIGN KEY (user1_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (user2_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- MESSAGES TABLE (Stores all messages)
+    
+CREATE TABLE messages (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    chat_id BIGINT NOT NULL,
+    sender_id BIGINT NOT NULL,
+    content TEXT,
+    message_type ENUM('TEXT', 'IMAGE', 'VIDEO', 'AUDIO') DEFAULT 'TEXT',
+    media_url VARCHAR(255), -- Stores media file URL (if any)
+    status ENUM('SENT', 'DELIVERED', 'READ') DEFAULT 'SENT',
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (chat_id) REFERENCES chats(id) ON DELETE CASCADE,
+    FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
+    INDEX idx_chat (chat_id, timestamp) -- Optimized for fast message retrieval
+);
+
+-- UPDATE CHATS TABLE TO INCLUDE LAST MESSAGE REFERENCE
+ALTER TABLE chats ADD FOREIGN KEY (last_message_id) REFERENCES messages(id) ON DELETE SET NULL;
+
+-- NOTIFICATIONS TABLE (Stores unread message notifications)
+CREATE TABLE notifications (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    message_id BIGINT NOT NULL,
+    status ENUM('UNREAD', 'READ') DEFAULT 'UNREAD',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (message_id) REFERENCES messages(id) ON DELETE CASCADE
+);
+
+-- TYPING STATUS TABLE (Stores who is typing in real-time)
+-- CREATE TABLE typing_status (
+--     id BIGINT AUTO_INCREMENT PRIMARY KEY,
+--     chat_id BIGINT NOT NULL,
+--     user_id BIGINT NOT NULL,
+--     is_typing BOOLEAN DEFAULT FALSE,
+--     last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--     FOREIGN KEY (chat_id) REFERENCES chats(id) ON DELETE CASCADE,
+--     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+-- );

@@ -1,0 +1,5 @@
+package com.whatsappclone.whatsappclone.config;
+
+public class WebSocketConfig {
+
+}

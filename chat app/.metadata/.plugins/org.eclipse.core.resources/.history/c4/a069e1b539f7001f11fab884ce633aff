@@ -1,0 +1,25 @@
+package com.whatsappclone.whatsappclone.chat;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.whatsappclone.whatsappclone.Entity.Chat;
+
+
+@RestController
+@RequestMapping("/api/chats")
+public class ChatController {
+	
+	@Autowired
+	private ChatService chatService;
+
+	@PostMapping("/create")
+	public ResponseEntity<Chat> createChat(@RequestParam Long user1,@RequestParam Long user2){
+		return ResponseEntity.ok(chatService.getOrCreateChat(user1, user2)) ;
+		
+	}
+}

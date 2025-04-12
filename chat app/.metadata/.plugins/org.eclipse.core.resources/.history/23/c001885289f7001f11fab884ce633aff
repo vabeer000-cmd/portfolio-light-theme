@@ -1,0 +1,20 @@
+package com.whatsappclone.whatsappclone.chat;
+
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class ChatWebSocketController {
+
+	@MessageMapping("/chat.sendMessage")
+	@SendTo("/topic/public")
+	public ChatMessage sendMessage(ChatMessage message) {
+		 message.setTimestamp(LocalDateTime.now());
+	        return message;
+	}
+	
+	@MessageMapping("/chat.typing")
+	@SendTo("/topic/typing")
+	public TypingStatus typingStatus()
+}

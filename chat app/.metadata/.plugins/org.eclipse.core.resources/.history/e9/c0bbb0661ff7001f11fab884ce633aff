@@ -1,0 +1,5 @@
+package com.whatsappclone.whatsappclone.chat;
+
+public class ChatDTO {
+
+}
