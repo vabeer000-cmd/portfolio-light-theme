@@ -1,0 +1,14 @@
+.footer-button {
+    appearance: none;
+    -webkit-appearance: none;
+
+    font-family: inherit;
+    font-size: inherit;
+
+    cursor: pointer;
+
+    background: transparent;
+    border: none;
+
+    padding: 0;
+}

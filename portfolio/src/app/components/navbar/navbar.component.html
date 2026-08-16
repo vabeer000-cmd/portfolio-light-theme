@@ -14,9 +14,24 @@
         </ul>
 
         <!-- Resume CTA -->
-        <a class="btn btn-ghost nav-resume" href="mailto:vabeer000@gmail.com" aria-label="Get in touch">
+        <!-- <a class="btn btn-ghost nav-resume" href="mailto:vabeer000@gmail.com" aria-label="Get in touch">
             Resume
-        </a>
+        </a> -->
+        <!-- Resume CTA -->
+<!-- <a
+    class="btn btn-ghost nav-resume"
+    href="resume/Abeer-Velugoti-Resume.pdf"
+    download="Abeer-Velugoti-Resume.pdf"
+    aria-label="Download resume">
+    Resume
+</a> -->
+<a
+    class="btn btn-ghost nav-resume"
+    [href]="resume.path"
+    [download]="resume.downloadName"
+    aria-label="Download resume">
+    Resume
+</a>
 
         <!-- Mobile toggle -->
         <button class="mobile-toggle" [class.open]="mobileOpen" (click)="toggleMobile()" aria-label="Toggle navigation"
@@ -44,10 +59,15 @@
                 </a>
             </li>
         </ul>
-        <div class="mobile-footer">
+        <!-- <div class="mobile-footer">
             <a href="mailto:vabeer000@gmail.com" class="btn btn-primary" style="width:100%;justify-content:center">
                 Get In Touch
             </a>
-        </div>
+        </div> -->
+        <a
+          [href]="'mailto:' + contact.email"
+          class="btn btn-primary">
+          Get In Touch
+        </a>
     </div>
 </div>

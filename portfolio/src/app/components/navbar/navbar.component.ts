@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScrollSpyService } from '../../services/scroll-spy.service';
+import { PORTFOLIO_CONFIG } from '../../config/portfolio.config';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +16,8 @@ export class NavbarComponent implements OnInit {
   activeSection = 'hero';
 
   private scrollSpy = inject(ScrollSpyService);
-
+readonly contact = PORTFOLIO_CONFIG.contact;
+readonly resume = PORTFOLIO_CONFIG.resume;
   navLinks = [
     { label: 'Work', href: '#projects' },
     { label: 'Experience', href: '#experience' },
