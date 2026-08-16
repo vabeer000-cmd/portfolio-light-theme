@@ -1,0 +1,53 @@
+<nav class="navbar" [class.scrolled]="scrolled" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+        <!-- Logo -->
+        <a class="nav-logo" href="#hero" (click)="scrollTo('#hero')" aria-label="Abeer Velugoti - Home">
+            <span class="logo-bracket">[</span>ABEER<span class="logo-bracket">]</span>
+        </a>
+
+        <!-- Desktop Links -->
+        <ul class="nav-links" role="list">
+            <li *ngFor="let link of navLinks">
+                <a class="nav-link" [class.active]="activeSection === getSectionId(link.href)" href="{{ link.href }}"
+                    (click)="scrollTo(link.href); $event.preventDefault()">{{ link.label }}</a>
+            </li>
+        </ul>
+
+        <!-- Resume CTA -->
+        <a class="btn btn-ghost nav-resume" href="mailto:vabeer000@gmail.com" aria-label="Get in touch">
+            Resume
+        </a>
+
+        <!-- Mobile toggle -->
+        <button class="mobile-toggle" [class.open]="mobileOpen" (click)="toggleMobile()" aria-label="Toggle navigation"
+            [attr.aria-expanded]="mobileOpen">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-overlay" [class.open]="mobileOpen" (click)="closeMobile()">
+    <div class="mobile-menu glass-card" (click)="$event.stopPropagation()">
+        <div class="mobile-menu-header">
+            <span class="logo-bracket">[</span>ABEER<span class="logo-bracket">]</span>
+            <button class="mobile-close" (click)="closeMobile()" aria-label="Close navigation">×</button>
+        </div>
+        <ul class="mobile-links" role="list">
+            <li *ngFor="let link of navLinks; let i = index">
+                <a class="mobile-link" [style.animation-delay]="i * 60 + 'ms'" href="{{ link.href }}"
+                    (click)="scrollTo(link.href); $event.preventDefault()">
+                    <span class="mobile-link-num mono">0{{ i + 1 }}</span>
+                    {{ link.label }}
+                </a>
+            </li>
+        </ul>
+        <div class="mobile-footer">
+            <a href="mailto:vabeer000@gmail.com" class="btn btn-primary" style="width:100%;justify-content:center">
+                Get In Touch
+            </a>
+        </div>
+    </div>
+</div>

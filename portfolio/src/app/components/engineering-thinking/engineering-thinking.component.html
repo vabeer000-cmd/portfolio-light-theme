@@ -1,0 +1,19 @@
+<section class="section" id="engineering" aria-label="Engineering Philosophy">
+    <div class="container">
+        <div class="section-header reveal">
+            <p class="section-label">Thinking</p>
+            <h2 class="section-title">How I Think About Engineering</h2>
+            <p class="section-subtitle">Principles that guide how I approach building software — beyond just frameworks.
+            </p>
+        </div>
+
+        <div class="principles-grid">
+            <div *ngFor="let p of principles; let i = index" class="principle-card glass-card reveal-scale"
+                [class]="'reveal-scale reveal-delay-' + ((i % 3) + 1)">
+                <span class="principle-icon">{{ p.icon }}</span>
+                <h3 class="principle-title">{{ p.title }}</h3>
+                <p class="principle-desc">{{ p.desc }}</p>
+            </div>
+        </div>
+    </div>
+</section>

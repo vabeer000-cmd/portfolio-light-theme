@@ -1,0 +1,32 @@
+<section class="section" id="beyond" aria-label="Beyond the Framework">
+    <div class="container">
+        <div class="beyond-grid">
+            <div class="beyond-text reveal">
+                <p class="section-label">Depth</p>
+                <h2 class="section-title">Beyond the Framework</h2>
+                <p class="section-subtitle">
+                    I don't just apply Spring Boot configurations. I understand the Java platform
+                    underneath — the object model, memory management, concurrency primitives, and
+                    design patterns that frameworks build on top of.
+                </p>
+                <p class="section-subtitle" style="margin-top:16px">
+                    This means when something breaks in production, I can reason from first principles
+                    rather than searching for a Stack Overflow answer.
+                </p>
+            </div>
+
+            <div class="depth-chain glass-card reveal reveal-delay-2">
+                <div class="chain-header mono">Engineering Foundation</div>
+                <div class="chain-steps">
+                    <div *ngFor="let step of chainSteps; let last = last" class="chain-item">
+                        <div class="chain-node" [class.highlight]="step.highlight">
+                            <span class="chain-icon">{{ step.icon }}</span>
+                            <span class="chain-label">{{ step.label }}</span>
+                        </div>
+                        <div *ngIf="!last" class="chain-arrow" aria-hidden="true">↓</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

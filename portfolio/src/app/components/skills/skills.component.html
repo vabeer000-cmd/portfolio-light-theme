@@ -1,0 +1,34 @@
+<section class="section" id="skills" aria-label="Technical Skills">
+    <div class="container">
+        <div class="section-header reveal">
+            <p class="section-label">Skills</p>
+            <h2 class="section-title">Technologies I Work With</h2>
+            <p class="section-subtitle">Hover any technology to learn how I use it.</p>
+        </div>
+
+        <!-- Active Tooltip -->
+        <div class="global-tooltip glass-card" [class.visible]="activeTooltip !== null">
+            <span class="tooltip-name text-accent mono">{{ activeTooltip }}</span>
+            <p class="tooltip-text">{{ tooltipText }}</p>
+        </div>
+
+        <div class="skills-grid">
+            <div *ngFor="let group of skillGroups; let i = index" class="skill-group glass-card reveal"
+                [class]="'reveal reveal-delay-' + ((i % 3) + 1)">
+                <div class="group-header">
+                    <span class="group-icon">{{ group.icon }}</span>
+                    <h3 class="group-category">{{ group.category }}</h3>
+                </div>
+                <div class="skill-tags">
+                    <button *ngFor="let skill of group.skills" class="skill-tag"
+                        [class.active]="activeTooltip === skill.name"
+                        (mouseenter)="showTooltip(skill.name, skill.tooltip)" (mouseleave)="hideTooltip()"
+                        (focus)="showTooltip(skill.name, skill.tooltip)" (blur)="hideTooltip()"
+                        [attr.aria-label]="skill.name + ': ' + skill.tooltip">
+                        {{ skill.name }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

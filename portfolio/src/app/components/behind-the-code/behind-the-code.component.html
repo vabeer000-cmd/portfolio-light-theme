@@ -1,0 +1,50 @@
+<section class="section" id="behind-code" aria-label="How backend architecture works">
+    <div class="container">
+        <div class="section-header reveal">
+            <p class="section-label">Behind the Code</p>
+            <h2 class="section-title">Request to Response</h2>
+            <p class="section-subtitle">Click any layer to explore how a Spring Boot backend handles a request.</p>
+        </div>
+
+        <div class="btc-grid">
+            <!-- Layer selector -->
+            <div class="layers-col">
+                <div class="layers-list">
+                    <div *ngFor="let layer of layers; let i = index; let last = last" class="layer-wrap reveal"
+                        [class]="'reveal reveal-delay-' + (i+1)">
+                        <button class="layer-btn" [class.active]="layer.active" (click)="selectLayer(layer)"
+                            [attr.aria-pressed]="layer.active">
+                            <span class="layer-num mono">{{ (i+1).toString().padStart(2, '0') }}</span>
+                            <div class="layer-info">
+                                <span class="layer-name">{{ layer.name }}</span>
+                                <span class="layer-desc mono">{{ layer.desc }}</span>
+                            </div>
+                            <svg class="layer-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <path d="M9 18l6-6-6-6" />
+                            </svg>
+                        </button>
+                        <div *ngIf="!last" class="layer-connector" [class.active]="layer.active" aria-hidden="true">
+                            <div class="connector-line"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detail panel -->
+            <div class="detail-col reveal reveal-delay-3">
+                <div class="detail-panel glass-card" *ngIf="activeLayer">
+                    <div class="detail-header">
+                        <span class="section-label">{{ activeLayer.name }}</span>
+                        <code class="detail-annotation mono">{{ activeLayer.desc }}</code>
+                    </div>
+                    <p class="detail-text">{{ activeLayer.detail }}</p>
+                    <div class="detail-footer">
+                        <span class="tag">Spring Boot</span>
+                        <span class="tag">Java</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

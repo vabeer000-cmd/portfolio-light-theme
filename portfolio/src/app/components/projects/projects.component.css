@@ -1,0 +1,250 @@
+:host {
+    display: block;
+}
+
+.section-header {
+    margin-bottom: 56px;
+}
+
+.featured-projects {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-bottom: 64px;
+}
+
+/* Project Card */
+.project-card {
+    padding: 32px;
+    transition: transform 300ms var(--ease-out), border-color 300ms ease;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.project-card.featured {
+    border-left: 2px solid var(--accent);
+}
+
+.project-card:hover {
+    border-color: rgba(79, 127, 255, 0.35);
+}
+
+.project-card-top {
+    margin-bottom: 28px;
+}
+
+.project-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.project-id {
+    font-size: 0.7rem;
+    color: var(--text-tertiary);
+    letter-spacing: 0.08em;
+}
+
+.project-name {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+}
+
+.project-tagline {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* Case study grid */
+.case-study-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 32px;
+    margin-bottom: 32px;
+}
+
+.story-col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.story-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.story-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-tertiary);
+}
+
+.story-block p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+/* Architecture */
+.arch-section {
+    background: rgba(79, 127, 255, 0.04);
+    border: 1px solid rgba(79, 127, 255, 0.1);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.arch-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-tertiary);
+    margin-bottom: 20px;
+}
+
+.arch-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    max-width: 360px;
+}
+
+.arch-node-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+}
+
+.arch-node {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    font-family: var(--font-mono);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 200ms ease;
+}
+
+.arch-node:hover,
+.arch-node.active {
+    background: rgba(79, 127, 255, 0.12);
+    border-color: rgba(79, 127, 255, 0.35);
+    color: #a0b8ff;
+}
+
+.arch-arrow {
+    padding: 4px 0 4px 16px;
+    font-size: 0.8rem;
+    color: var(--accent);
+    opacity: 0.4;
+}
+
+.arch-tooltip {
+    margin-top: 16px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    background: rgba(79, 127, 255, 0.08);
+    border: 1px solid rgba(79, 127, 255, 0.15);
+    min-height: 54px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.arch-tooltip.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.arch-tooltip-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    text-transform: uppercase;
+}
+
+.arch-tooltip p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+}
+
+.project-footer {
+    margin-top: 8px;
+}
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Secondary projects */
+.secondary-header {
+    margin-bottom: 24px;
+}
+
+.secondary-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text-secondary);
+}
+
+.secondary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.project-card.secondary {
+    padding: 24px;
+}
+
+.story-mini {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 16px;
+}
+
+@media (max-width: 1024px) {
+    .case-study-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .secondary-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .project-card {
+        padding: 20px;
+    }
+
+    .project-name {
+        font-size: 1.2rem;
+    }
+}

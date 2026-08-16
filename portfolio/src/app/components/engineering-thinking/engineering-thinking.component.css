@@ -1,0 +1,56 @@
+:host {
+    display: block;
+}
+
+.section-header {
+    margin-bottom: 56px;
+}
+
+.principles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.principle-card {
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: all 300ms var(--ease-out);
+}
+
+.principle-card:hover {
+    background: var(--surface-hover);
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.principle-icon {
+    font-size: 1.6rem;
+}
+
+.principle-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.principle-desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+@media (max-width: 1024px) {
+    .principles-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .principles-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,135 @@
+<section class="section" id="projects" aria-label="Projects">
+    <div class="container">
+        <div class="section-header reveal">
+            <p class="section-label">Projects</p>
+            <h2 class="section-title">What I've Built</h2>
+            <p class="section-subtitle">Engineering case studies — from problem to production.</p>
+        </div>
+
+        <!-- Featured Projects -->
+        <div class="featured-projects">
+            <div *ngFor="let project of projects; let i = index">
+
+                <!-- Full case study for featured projects -->
+                <div *ngIf="project.featured" class="project-card featured glass-card reveal"
+                    [class]="'reveal reveal-delay-' + (i+1)">
+                    <div class="project-card-top">
+                        <div class="project-meta">
+                            <span class="tag">{{ project.category }}</span>
+                            <span class="project-id mono">#{{ project.id }}</span>
+                        </div>
+                        <h3 class="project-name">{{ project.name }}</h3>
+                        <p class="project-tagline">{{ project.tagline }}</p>
+                    </div>
+
+                    <div class="case-study-grid">
+                        <!-- Story columns -->
+                        <div class="story-col">
+                            <div class="story-block">
+                                <h4 class="story-label">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                                        <circle cx="12" cy="12" r="10" />
+                                    </svg>
+                                    The Problem
+                                </h4>
+                                <p>{{ project.problem }}</p>
+                            </div>
+                            <div class="story-block">
+                                <h4 class="story-label">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M9 17l3-3 3 3M9 7l3 3 3-3" />
+                                    </svg>
+                                    The Approach
+                                </h4>
+                                <p>{{ project.approach }}</p>
+                            </div>
+                        </div>
+
+                        <div class="story-col">
+                            <div class="story-block">
+                                <h4 class="story-label">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                                    </svg>
+                                    The Hard Part
+                                </h4>
+                                <p>{{ project.hardPart }}</p>
+                            </div>
+                            <div class="story-block">
+                                <h4 class="story-label">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    The Result
+                                </h4>
+                                <p>{{ project.result }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Architecture diagram -->
+                    <div *ngIf="project.architecture" class="arch-section">
+                        <h4 class="arch-title">Architecture — hover a component</h4>
+                        <div class="arch-diagram">
+                            <div *ngFor="let node of project.architecture; let last = last" class="arch-node-wrap">
+                                <button class="arch-node" [class.active]="activeArchNode === node"
+                                    (mouseenter)="showArchNode(node)" (mouseleave)="hideArchNode()"
+                                    (focus)="showArchNode(node)" (blur)="hideArchNode()"
+                                    [attr.aria-label]="node.label + ': ' + node.tooltip">
+                                    {{ node.label }}
+                                </button>
+                                <div *ngIf="!last" class="arch-arrow" aria-hidden="true">↓</div>
+                            </div>
+                        </div>
+                        <div class="arch-tooltip" [class.visible]="activeArchNode !== null">
+                            <span class="arch-tooltip-label mono">{{ activeArchNode?.label }}</span>
+                            <p>{{ activeArchNode?.tooltip }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Tech tags -->
+                    <div class="project-footer">
+                        <div class="tech-tags">
+                            <span *ngFor="let tech of project.technologies" class="tag">{{ tech }}</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Secondary Projects Grid -->
+        <div class="secondary-header reveal">
+            <h3 class="secondary-title">More Projects</h3>
+        </div>
+        <div class="secondary-grid">
+            <div *ngFor="let project of projects; let i = index">
+                <div *ngIf="!project.featured" class="project-card secondary glass-card reveal"
+                    [class]="'reveal reveal-delay-' + (i+1)">
+                    <div class="project-meta">
+                        <span class="tag">{{ project.category }}</span>
+                    </div>
+                    <h3 class="project-name">{{ project.name }}</h3>
+                    <p class="project-tagline">{{ project.tagline }}</p>
+                    <div class="story-mini">
+                        <div class="story-block">
+                            <h4 class="story-label">Problem</h4>
+                            <p>{{ project.problem }}</p>
+                        </div>
+                        <div class="story-block">
+                            <h4 class="story-label">Result</h4>
+                            <p>{{ project.result }}</p>
+                        </div>
+                    </div>
+                    <div class="tech-tags" style="margin-top:16px">
+                        <span *ngFor="let tech of project.technologies" class="tag">{{ tech }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

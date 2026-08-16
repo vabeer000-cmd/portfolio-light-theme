@@ -1,0 +1,50 @@
+<section class="section" id="about" aria-label="About Abeer Velugoti">
+    <div class="container">
+        <div class="about-grid">
+            <!-- Left: Identity -->
+            <div class="about-identity">
+                <p class="section-label">About</p>
+                <div class="identity-lines">
+                    <p *ngFor="let line of identityLines; let i = index" class="identity-line reveal"
+                        [class]="'reveal reveal-delay-' + (i+1)">
+                        {{ line }}
+                    </p>
+                </div>
+                <div class="about-bio reveal reveal-delay-4">
+                    <p>
+                        I'm <strong>Abeer Velugoti</strong>, a Java Full Stack Developer based in Hyderabad, India.
+                        I work at <strong>Alladi Cloud Solutions</strong> building production backend systems that power
+                        real-world applications used in transportation and operations management.
+                    </p>
+                    <p>
+                        My backend work spans from designing REST APIs and database schemas to integrating cloud
+                        telephony systems, push notifications, and SMS services. I collaborate closely with
+                        Angular and Flutter teams to deliver end-to-end features.
+                    </p>
+                    <p>
+                        I studied Electronics & Communication Engineering at UCET, Acharya Nagarjuna University
+                        (CGPA: 8.0), which gave me a strong foundation in systems thinking.
+                    </p>
+                </div>
+                <div class="about-certs reveal reveal-delay-5">
+                    <p class="certs-label mono">Certifications</p>
+                    <div class="cert-list">
+                        <span class="tag">🎓 Spring Boot Microservices — LinkedIn Learning</span>
+                        <span class="tag">🎓 Angular Essential Training — LinkedIn Learning</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Capabilities -->
+            <div class="capabilities-grid">
+                <div *ngFor="let cap of capabilities; let i = index"
+                    class="capability-card glass-card reveal reveal-scale"
+                    [class]="'reveal-scale reveal-delay-' + (i+1)">
+                    <span class="cap-icon">{{ cap.icon }}</span>
+                    <h3 class="cap-title">{{ cap.title }}</h3>
+                    <p class="cap-desc">{{ cap.desc }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

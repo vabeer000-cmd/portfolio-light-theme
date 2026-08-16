@@ -1,0 +1,94 @@
+:host {
+    display: block;
+}
+
+.beyond-grid {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 80px;
+    align-items: center;
+}
+
+.beyond-text {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.depth-chain {
+    padding: 32px;
+}
+
+.chain-header {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+}
+
+.chain-steps {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+}
+
+.chain-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+}
+
+.chain-node {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    transition: background 200ms ease;
+    width: 100%;
+}
+
+.chain-node:hover {
+    background: rgba(79, 127, 255, 0.06);
+}
+
+.chain-node.highlight .chain-label {
+    color: var(--text-accent);
+}
+
+.chain-node.highlight {
+    background: rgba(79, 127, 255, 0.05);
+}
+
+.chain-icon {
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.chain-label {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.chain-arrow {
+    padding: 2px 0 2px 22px;
+    font-size: 0.72rem;
+    color: var(--accent);
+    opacity: 0.3;
+}
+
+@media (max-width: 1024px) {
+    .beyond-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+    }
+
+    .depth-chain {
+        max-width: 480px;
+    }
+}
