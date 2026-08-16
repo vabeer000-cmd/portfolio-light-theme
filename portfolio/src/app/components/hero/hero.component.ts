@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, inject, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PORTFOLIO_CONFIG } from '../../config/portfolio.config';
 
 @Component({
   selector: 'app-hero',
@@ -39,7 +40,11 @@ import { CommonModule } from '@angular/common';
 //   }
 // }
 export class HeroComponent implements AfterViewInit {
+[x: string]: any;
   private el = inject(ElementRef);
+
+  readonly contact = PORTFOLIO_CONFIG.contact;
+  readonly social = PORTFOLIO_CONFIG.social;
 
   pipelineSteps = [
     { label: 'Java', icon: '☕', desc: 'Core Language' },
@@ -57,6 +62,11 @@ export class HeroComponent implements AfterViewInit {
       behavior: 'smooth',
       block: 'start'
     });
+  }
+
+    openLinkedIn(): void {
+    window.open(this.social.linkedin, '_blank', 'noopener,noreferrer');
+    
   }
 
   ngAfterViewInit() {
