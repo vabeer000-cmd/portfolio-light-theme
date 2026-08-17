@@ -11,6 +11,7 @@ export const PORTFOLIO_CONFIG = {
   },
 
   social: {
+    
     linkedin: 'https://linkedin.com/in/velugoti-abeer-001251216',
     github: 'https://github.com/vabeer000-cmd/portfolio-light-theme',
   },
